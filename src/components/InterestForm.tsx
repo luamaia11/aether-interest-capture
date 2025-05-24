@@ -49,7 +49,7 @@ const InterestForm = () => {
       <form onSubmit={handleSubmit} className="space-y-8">
         <div className="space-y-2">
           <label htmlFor="nomeCompleto" className="block text-black text-sm">
-            Nome completo:
+            NOME COMPLETO:
           </label>
           <Input
             id="nomeCompleto"
@@ -63,7 +63,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="especialidade" className="block text-black text-sm">
-            Especialidade Médica (Nutrição e Odontológica inclusas):
+            ESPECIALIDADE MÉDICA (NUTRIÇÃO E ODONTOLÓGICA INCLUSAS):
           </label>
           <Input
             id="especialidade"
@@ -77,7 +77,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="telefone" className="block text-black text-sm">
-            Telefone com DDD:
+            TELEFONE (COM DDD):
           </label>
           <Input
             id="telefone"
@@ -91,7 +91,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="pacientesMes" className="block text-black text-sm">
-            Quantos pacientes atende em média por mês:
+            QUANTOS PACIENTES ATENDE POR MÊS:
           </label>
           <Input
             id="pacientesMes"
@@ -105,7 +105,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="email" className="block text-black text-sm">
-            E-mail para contato:
+            E-MAIL PARA CONTATO:
           </label>
           <Input
             id="email"
@@ -122,7 +122,7 @@ const InterestForm = () => {
             type="submit"
             className="w-full bg-transparent text-black border border-black hover:bg-black hover:text-white transition-colors duration-200 rounded-none"
           >
-            Enviar
+            ENVIAR
           </Button>
         </div>
       </form>
