@@ -1,0 +1,133 @@
+
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
+
+const InterestForm = () => {
+  const [formData, setFormData] = useState({
+    nomeCompleto: '',
+    especialidade: '',
+    telefone: '',
+    pacientesMes: '',
+    email: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validação simples
+    if (!formData.nomeCompleto || !formData.especialidade || !formData.telefone || !formData.pacientesMes || !formData.email) {
+      toast.error('Por favor, preencha todos os campos');
+      return;
+    }
+
+    // Simulação de envio
+    console.log('Dados do formulário:', formData);
+    toast.success('Interesse enviado com sucesso!');
+    
+    // Limpar formulário
+    setFormData({
+      nomeCompleto: '',
+      especialidade: '',
+      telefone: '',
+      pacientesMes: '',
+      email: ''
+    });
+  };
+
+  return (
+    <div className="w-full max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="space-y-2">
+          <label htmlFor="nomeCompleto" className="block text-black text-sm">
+            Nome completo:
+          </label>
+          <Input
+            id="nomeCompleto"
+            name="nomeCompleto"
+            type="text"
+            value={formData.nomeCompleto}
+            onChange={handleInputChange}
+            className="w-full border-0 border-b border-black rounded-none bg-transparent focus:ring-0 focus:border-b-2 focus:border-black px-0"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="especialidade" className="block text-black text-sm">
+            Especialidade Médica (Nutrição e Odontológica inclusas):
+          </label>
+          <Input
+            id="especialidade"
+            name="especialidade"
+            type="text"
+            value={formData.especialidade}
+            onChange={handleInputChange}
+            className="w-full border-0 border-b border-black rounded-none bg-transparent focus:ring-0 focus:border-b-2 focus:border-black px-0"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="telefone" className="block text-black text-sm">
+            Telefone com DDD:
+          </label>
+          <Input
+            id="telefone"
+            name="telefone"
+            type="tel"
+            value={formData.telefone}
+            onChange={handleInputChange}
+            className="w-full border-0 border-b border-black rounded-none bg-transparent focus:ring-0 focus:border-b-2 focus:border-black px-0"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="pacientesMes" className="block text-black text-sm">
+            Quantos pacientes atende em média por mês:
+          </label>
+          <Input
+            id="pacientesMes"
+            name="pacientesMes"
+            type="number"
+            value={formData.pacientesMes}
+            onChange={handleInputChange}
+            className="w-full border-0 border-b border-black rounded-none bg-transparent focus:ring-0 focus:border-b-2 focus:border-black px-0"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="email" className="block text-black text-sm">
+            E-mail para contato:
+          </label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="w-full border-0 border-b border-black rounded-none bg-transparent focus:ring-0 focus:border-b-2 focus:border-black px-0"
+          />
+        </div>
+
+        <div className="pt-6">
+          <Button
+            type="submit"
+            className="w-full bg-transparent text-black border border-black hover:bg-black hover:text-white transition-colors duration-200 rounded-none"
+          >
+            Enviar
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default InterestForm;
