@@ -21,27 +21,36 @@ const InterestForm = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validação simples
+
     if (!formData.nomeCompleto || !formData.especialidade || !formData.telefone || !formData.pacientesMes || !formData.email) {
       toast.error('Por favor, preencha todos os campos');
       return;
     }
 
-    // Simulação de envio
-    console.log('Dados do formulário:', formData);
-    toast.success('Interesse enviado com sucesso!');
-    
-    // Limpar formulário
-    setFormData({
-      nomeCompleto: '',
-      especialidade: '',
-      telefone: '',
-      pacientesMes: '',
-      email: ''
-    });
+    try {
+      const response = await fetch("https://primary-production-9bb3.up.railway.app/webhook-test/formulario", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(formData)
+});
+      if (response.ok) {
+        toast.success('Interesse enviado com sucesso!');
+        setFormData({
+          nomeCompleto: '',
+          especialidade: '',
+          telefone: '',
+          pacientesMes: '',
+          email: ''
+        });
+      } else {
+        toast.error('Erro ao enviar o formulário');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Erro na conexão com o servidor');
+    }
   };
 
   return (
@@ -63,7 +72,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="especialidade" className="block text-black text-sm">
-            ESPECIALIDADE MÉDICA (NUTRIÇÃO E ODONTOLÓGICA INCLUSAS):
+            ESPECIALIDADE MÉDICA (NUTRIÇÃO, ODONTOLÓGICA INCLUSAS OU ESTUDANTE):
           </label>
           <Input
             id="especialidade"
@@ -91,7 +100,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="pacientesMes" className="block text-black text-sm">
-            QUANTOS PACIENTES ATENDE POR MÊS:
+            QUANTOS PACIENTES EM MÉDIA ATENDE POR MÊS:
           </label>
           <Input
             id="pacientesMes"
