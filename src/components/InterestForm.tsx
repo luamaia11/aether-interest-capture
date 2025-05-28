@@ -30,6 +30,7 @@ const InterestForm = () => {
     }
 
     try {
+      console.log("Enviando dados para o webhook...");
       const response = await fetch("https://primary-production-9bb3.up.railway.app/webhook/formulario", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
