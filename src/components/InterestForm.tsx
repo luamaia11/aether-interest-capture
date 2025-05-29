@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,20 +22,27 @@ const InterestForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("handleSubmit iniciado"); // Log 1
 
+    // Validação dos campos
     if (!formData.nomeCompleto || !formData.especialidade || !formData.telefone || !formData.pacientesMes || !formData.email) {
+      console.log("Validação falhou: campos obrigatórios faltando."); // Log 2
       toast.error('Por favor, preencha todos os campos');
       return;
     }
+    console.log("Validação passou. Dados do formulário:", formData); // Log 3
 
     try {
-      console.log("Enviando dados para o webhook...");
+      console.log("Dentro do try, antes do fetch para o webhook."); // Log 4
       const response = await fetch("https://primary-production-9bb3.up.railway.app/webhook/formulario", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(formData)
-});
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      console.log("Fetch realizado, status da resposta:", response.status); // Log 5
+
       if (response.ok) {
+        console.log("Resposta OK do webhook."); // Log 6
         toast.success('Interesse enviado com sucesso!');
         setFormData({
           nomeCompleto: '',
@@ -46,12 +52,16 @@ const InterestForm = () => {
           email: ''
         });
       } else {
-        toast.error('Erro ao enviar o formulário');
+        console.error("Erro na resposta do webhook. Status:", response.status); // Log 7
+        const responseBody = await response.text(); // Tenta ler o corpo da resposta como texto
+        console.error("Corpo da resposta do erro:", responseBody); // Log 8
+        toast.error('Erro ao enviar o formulário. Status: ' + response.status);
       }
     } catch (error) {
-      console.error(error);
-      toast.error('Erro na conexão com o servidor');
+      console.error("Erro capturado no bloco catch ao tentar enviar o formulário:", error); // Log 9
+      toast.error('Erro na conexão com o servidor.');
     }
+    console.log("handleSubmit finalizado"); // Log 10
   };
 
   return (
