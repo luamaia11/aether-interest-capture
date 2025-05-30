@@ -29,12 +29,14 @@ const InterestForm = () => {
     }
 
     try {
-      console.log("Enviando dados para o webhook...");
-      const response = await fetch("https://primary-production-9bb3.up.railway.app/webhook/formulario", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(formData)
-});
+      const response = await fetch('https://primary-production-9bb3.up.railway.app/webhook/formulario', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
       if (response.ok) {
         toast.success('Interesse enviado com sucesso!');
         setFormData({
@@ -45,10 +47,9 @@ const InterestForm = () => {
           email: ''
         });
       } else {
-        toast.error('Erro ao enviar o formulário');
+        toast.error('Erro ao enviar formulário');
       }
     } catch (error) {
-      console.error(error);
       toast.error('Erro na conexão com o servidor');
     }
   };
@@ -72,7 +73,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="especialidade" className="block text-black text-sm">
-            ESPECIALIDADE MÉDICA (NUTRIÇÃO, ODONTOLÓGICA INCLUSAS OU ESTUDANTE):
+            ESPECIALIDADE MÉDICA (NUTRIÇÃO E ODONTOLÓGICA INCLUSAS):
           </label>
           <Input
             id="especialidade"
@@ -100,7 +101,7 @@ const InterestForm = () => {
 
         <div className="space-y-2">
           <label htmlFor="pacientesMes" className="block text-black text-sm">
-            QUANTOS PACIENTES EM MÉDIA ATENDE POR MÊS:
+            QUANTOS PACIENTES ATENDE POR MÊS:
           </label>
           <Input
             id="pacientesMes"
@@ -140,5 +141,5 @@ const InterestForm = () => {
 };
 
 export default InterestForm;
-  );
-};
+
+
